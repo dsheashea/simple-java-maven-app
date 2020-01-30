@@ -14,8 +14,8 @@ pipeline {
                // specify Artifactory server
                 rtServer (
                     id: "ARTIFACTORY_SERVER",
-                    url: SERVER_URL,
-    		        credentialsId: CREDENTIALS
+                    url: credentials("SERVER_URL"),
+    		        credentialsId: credentials("artifactory-jenkins-user")
                 )
     		    // specify the repositories to be used for deploying the artifacts in the Artifactory
                 rtMavenDeployer (
