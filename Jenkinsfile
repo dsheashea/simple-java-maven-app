@@ -14,8 +14,8 @@ pipeline {
                // specify Artifactory server
                 rtServer (
                     id: "ARTIFACTORY_SERVER",
-                    url: "http://localhost:8086/artifactory",
-    		        credentialsId: '6a7fb6ed-0fa5-447f-be7b-d2d0ca0444af'
+                    url: SERVER_URL,
+    		        credentialsId: CREDENTIALS
                 )
     		    // specify the repositories to be used for deploying the artifacts in the Artifactory
                 rtMavenDeployer (
@@ -34,19 +34,15 @@ pipeline {
             }
         }
         stage('Build') {
-            steps {
-                sh 'mvn -B -DskipTests clean package'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
-            post {
-                always {
-                    junit 'target/surefire-reports/*.xml'
-                }
-            }
+           steps {
+               rtMavenRun (
+                   tool: MAVEN_TOOL, // Tool name from Jenkins configuration
+                   pom: 'maven-example/pom.xml',
+                   goals: 'clean install',
+                   deployerId: "MAVEN_DEPLOYER",
+                   resolverId: "MAVEN_RESOLVER"
+               )
+           }
         }
         stage('Publishing to Artifactory') {
             steps {
