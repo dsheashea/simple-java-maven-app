@@ -16,14 +16,14 @@ pipeline {
                     id: "ARTIFACTORY_SERVER",
                     url: "http://localhost:8086/artifactory",
     		        credentialsId: 'Artifactory'
-                    )
+                )
     		    // specify the repositories to be used for deploying the artifacts in the Artifactory
                 rtMavenDeployer (
                     id: "MAVEN_DEPLOYER",
                     serverId: "ARTIFACTORY_SERVER",
                     releaseRepo: "libs-release-local",
                     snapshotRepo: "libs-snapshot-local"
-                    )
+                )
     		    // defines the dependencies resolution details
                 rtMavenResolver (
                     id: "MAVEN_RESOLVER",
@@ -49,9 +49,11 @@ pipeline {
             }
         }
         stage('Publishing to Artifactory') {
-            rtPublishBuildInfo (
-                serverId: "ARTIFACTORY_SERVER"
-            )
+            steps {
+               rtPublishBuildInfo (
+                            serverId: "ARTIFACTORY_SERVER"
+               )
+            }
         }
     }
 }
