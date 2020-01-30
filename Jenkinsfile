@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'mvn -B -DskipTests clean package'
+                sh 'mvn test'
             }
             post {
                 always {
