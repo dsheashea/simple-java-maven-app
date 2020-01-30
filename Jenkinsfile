@@ -40,7 +40,7 @@ pipeline {
         stage('Build') {
            steps {
                rtMavenRun (
-                   tool: MAVEN_TOOL, // Tool name from Jenkins configuration
+                   // tool: MAVEN_TOOL, // Tool name from Jenkins configuration
                    pom: 'maven-example/pom.xml',
                    goals: 'clean install',
                    deployerId: "MAVEN_DEPLOYER",
