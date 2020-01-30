@@ -5,6 +5,10 @@ pipeline {
             args '-v /root/.m2:/root/.m2'
         }
     }
+    environment {
+        SERVER_URL     = credentials('SERVER_URL')
+        ARTIFACTORY_CREDENTIALS = credentials('jartifactory-jenkins-user')
+    }
     options {
         skipStagesAfterUnstable()
     }
@@ -14,8 +18,8 @@ pipeline {
                // specify Artifactory server
                 rtServer (
                     id: "ARTIFACTORY_SERVER",
-                    url: credentials("SERVER_URL"),
-    		        credentialsId: credentials("artifactory-jenkins-user")
+                    url: SERVER_URL,
+    		        credentialsId: ARTIFACTORY_CREDENTIALS
                 )
     		    // specify the repositories to be used for deploying the artifacts in the Artifactory
                 rtMavenDeployer (
