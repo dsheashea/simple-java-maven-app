@@ -15,7 +15,7 @@ pipeline {
                 rtServer (
                     id: "ARTIFACTORY_SERVER",
                     url: "http://localhost:8086/artifactory",
-    		        credentialsId: 'Artifactory'
+    		        credentialsId: '6a7fb6ed-0fa5-447f-be7b-d2d0ca0444af'
                 )
     		    // specify the repositories to be used for deploying the artifacts in the Artifactory
                 rtMavenDeployer (
@@ -51,7 +51,7 @@ pipeline {
         stage('Publishing to Artifactory') {
             steps {
                rtPublishBuildInfo (
-                            serverId: "ARTIFACTORY_SERVER"
+                    serverId: "ARTIFACTORY_SERVER"
                )
             }
         }
