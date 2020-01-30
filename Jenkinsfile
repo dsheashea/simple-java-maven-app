@@ -7,7 +7,7 @@ pipeline {
     }
     environment {
         SERVER_URL     = credentials('SERVER_URL')
-        ARTIFACTORY_CREDENTIALS = credentials('jartifactory-jenkins-user')
+        ARTIFACTORY_CREDENTIALS = credentials('artifactory-jenkins-user')
     }
     options {
         skipStagesAfterUnstable()
